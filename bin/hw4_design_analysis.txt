@@ -1,0 +1,84 @@
+/**********************************************************************
+ *  HW4 - Blockly
+ *  PROGRAM ANALYSIS
+ *
+ *  For each method below:
+ *    - List the data structure(s) you used. Provide a brief justification
+ *    - Provide its big-O. Provide a brief justification                                                    
+ **********************************************************************/
+
+* random_init:
+
+- smash the randomly chosen leaf node(acquired by BFS -> O(n)), until the randomly chosen node
+Is in max-depth and is a leaf node
+Assume total number of block is n worst case would be smash every node 
+- Big Oh: O(n^2)
+n: number of blocks
+
+
+**********************************************************************
+* getBlock:
+
+- Using BFS goes though the tree node by node and layer by layer
+- Big Oh: O(n)
+n: number of blocks
+
+
+**********************************************************************
+* swap:
+
+- Call getBlock twice to get desired blocks O(2*n), update their parents O(1)
+Then recursively call update function to update their children --> O(logn)
+- Big Oh: O(nlogn)
+n: number of blocks
+
+
+**********************************************************************
+* smash:
+
+- Create four children and put into fields of parent node. No loop --> O(1)
+- Big Oh: O(1)
+
+
+**********************************************************************
+* rotate:
+
+- Update the points of four children as below --> O(1*4), Using BFS to get 
+The block --> O(n),
+
+			 * p1 -- p2 --
+			 * |     |     |
+			 * p3 -- p4 -- p5
+			 * |     |     |
+			 *    -- p6 -- p7
+			 *    
+			 * botleft(p3, p6) -> topleft(p1, p4)
+			 * topleft(p1, p4) -> topright(p2, p5) 
+			 * topright(p2, p5) -> botright(p4, p7)
+			 * botright(p4, p7) -> botleft(p3, p6)
+			
+Then recursively goes deeper to their subtree to update points --> O(logn)
+
+- Big Oh: O(nlogn)
+n: total number of blocks
+
+**********************************************************************
+* flatten:
+
+- Using BFS -> O(n) to go through every node, if the node is leaf node, put it by nested loop in
+The board 2D array whose size is 2^max_depth -> 2^logn.
+
+
+- Big Oh: O(n * 2^2logn)
+
+
+**********************************************************************
+* perimeter_score:
+
+- Loop through the board 2D IBlock array and calculate the score
+- Big Oh: O(n^2)
+n : size of board. is game size (bottomright x - topleft x)
+Divided by 2 to the power of max depth  
+
+
+**********************************************************************
